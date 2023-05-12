@@ -1,0 +1,43 @@
+@use '_variables' as v
+
+header
+    .header
+        display: flex
+        align-items: center
+        justify-content: space-between
+        border-bottom: 1px solid v.$border-color
+
+        .main-buttons-box
+            display: flex
+            gap: 30px
+
+main
+    margin-top: 50px
+
+    .home-display
+        display: grid
+        grid-template-columns: 1fr 1fr 1fr
+        gap: 40px
+
+    .product-item
+        border: 2px solid v.$border-color
+        padding-inline: 5px
+        padding-bottom: 40px
+
+        .describe-box
+            text-align: center
+
+            p, h3
+                margin-block: 12px
+
+    .container
+        .form-box
+            form
+                .data-inputs
+                    display: flex
+                    flex-direction: column
+                    align-items: flex-start
+                    gap: 10px
+
+                .select-box
+                    margin-top: 40px
