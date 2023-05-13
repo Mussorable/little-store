@@ -3,6 +3,10 @@
   margin-inline: auto;
 }
 
+body {
+  margin: 0;
+}
+
 header .header {
   display: flex;
   align-items: center;
@@ -41,6 +45,15 @@ main .container .form-box form .data-inputs {
 }
 main .container .form-box form .select-box {
   margin-top: 40px;
+}
+main .container .form-box form .type-data-box {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+main .container .form-box form .type-data-box .description {
+  margin: 20px 0 0 0;
 }
 
 .button {

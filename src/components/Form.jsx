@@ -7,7 +7,12 @@ export default function Form({ handleFormSubmit }) {
 
   return (
     <div className="form-box">
-      <form id="product_form" action="" onSubmit={handleFormSubmit}>
+      <form
+        id="product_form"
+        action="index.php"
+        method="GET"
+        onSubmit={handleFormSubmit}
+      >
         <div className="data-inputs">
           <Input className="input-field" type="text" id="sku" labelName="SKU" />
           <Input
@@ -17,6 +22,7 @@ export default function Form({ handleFormSubmit }) {
             labelName="Name"
           />
           <Input
+            name="name"
             className="input-field"
             type="text"
             id="price"

@@ -2,7 +2,7 @@ import Input from "./Input";
 
 export default function TypeData({ typeName }) {
   return (
-    <div className={`input-data-${typeName}`}>
+    <>
       {typeName === "DVD" && (
         <>
           <Input
@@ -11,7 +11,7 @@ export default function TypeData({ typeName }) {
             id="size"
             labelName="Size (MB)"
           />
-          <p>Please, provide size</p>
+          <p className="description">Please, provide size</p>
         </>
       )}
       {typeName === "Furniture" && (
@@ -34,7 +34,7 @@ export default function TypeData({ typeName }) {
             id="length"
             labelName="Length (CM)"
           />
-          <p>Please, provide dimensions</p>
+          <p className="description">Please, provide dimensions</p>
         </>
       )}
       {typeName === "Book" && (
@@ -45,9 +45,9 @@ export default function TypeData({ typeName }) {
             id="weight"
             labelName="Weight (KG)"
           />
-          <p>Please, provide weight</p>
+          <p className="description">Please, provide weight</p>
         </>
       )}
-    </div>
+    </>
   );
 }
