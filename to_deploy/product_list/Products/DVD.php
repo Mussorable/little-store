@@ -17,6 +17,18 @@ class DVD extends Product
         $this->size = $size;
     }
 
+    function getDataArray()
+    {
+        $data = [
+            "sku" => $this->sku,
+            "name" => $this->name,
+            "price" => $this->price,
+            "arg" => $this->size,
+            "type" => 'DVD'
+        ];
+        return $data;
+    }
+
     function getData()
     {
         echo $this->sku;

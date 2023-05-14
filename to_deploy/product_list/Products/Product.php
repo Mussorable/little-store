@@ -7,4 +7,5 @@ abstract class Product
 
     abstract protected function setData($arg0, $arg1, $arg2);
     abstract protected function getData();
+    abstract protected function getDataArray();
 }
