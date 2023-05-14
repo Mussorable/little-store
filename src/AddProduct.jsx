@@ -11,7 +11,7 @@ export default function AddProduct() {
   }
 
   function handleFormSubmit(e) {
-    redirectToHome();
+    // redirectToHome();
   }
 
   return (
