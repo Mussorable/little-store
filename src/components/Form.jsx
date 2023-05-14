@@ -3,7 +3,7 @@ import { useState } from "react";
 import TypeData from "./TypeData";
 
 export default function Form({ handleFormSubmit }) {
-  const [productType, setProductType] = useState("DVD");
+  const [productType, setProductType] = useState("");
 
   return (
     <div className="form-box">
@@ -22,7 +22,7 @@ export default function Form({ handleFormSubmit }) {
             labelName="Name"
           />
           <Input
-            name="name"
+            name="product"
             className="input-field"
             type="text"
             id="price"
@@ -33,10 +33,11 @@ export default function Form({ handleFormSubmit }) {
         <div className="select-box">
           <label htmlFor="productType">Type Switcher</label>
           <select
-            name=""
+            name="type-select"
             id="productType"
             onChange={(e) => setProductType(e.target.value)}
           >
+            <option value="">Select type:</option>
             <option value="DVD">DVD</option>
             <option value="Book">Book</option>
             <option value="Furniture">Furniture</option>
