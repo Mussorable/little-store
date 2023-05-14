@@ -17,12 +17,23 @@ class Book extends Product
         $this->weight = $weight;
     }
 
+    function getDataArray()
+    {
+        $data = [
+            "sku" => $this->sku,
+            "name" => $this->name,
+            "price" => $this->price,
+            "arg" => $this->weight,
+            "type" => "Book"
+        ];
+        return $data;
+    }
+
     function getData()
     {
-        echo $this->sku . '<br>';
-        echo $this->name . '<br>';
-        echo $this->price . '<br>';
-
-        echo $this->weight . '<br>';
+        echo $this->sku;
+        echo $this->name;
+        echo $this->price;
+        echo $this->weight;
     }
 }

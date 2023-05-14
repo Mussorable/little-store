@@ -1,5 +1,8 @@
 <?php
 
+// 
+require 'product_list/ConnectDB.php';
+
 // Take the same for all products data and return new Product object
 $typeSelect = $_GET['type-select'];
 $sku = $_GET['sku'];
@@ -33,3 +36,9 @@ function getTypeClassData($product)
 $product = factory($typeSelect, $sku, $name, $price);
 getTypeClassData($product);
 echo $product->getData();
+
+// 
+$database = new ConnectDB('localhost', 'products', 'root', 'root');
+$database->setConnection();
+$database->addProduct($product->getDataArray());
+$database->closeConnection();

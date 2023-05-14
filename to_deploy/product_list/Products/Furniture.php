@@ -21,6 +21,18 @@ class Furniture extends Product
         $this->length = $length;
     }
 
+    function getDataArray()
+    {
+        $data = [
+            "sku" => $this->sku,
+            "name" => $this->name,
+            "price" => $this->price,
+            "arg" => $this->height . 'x' . $this->width . 'x' . $this->length,
+            "type" => "Furniture"
+        ];
+        return $data;
+    }
+
     function getData()
     {
         echo $this->sku . '<br>';
