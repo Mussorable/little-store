@@ -12,9 +12,9 @@ class DVD extends Product
         $this->price = $price;
     }
 
-    function productWeight()
+    function setData($size, $arg1 = null, $arg2 = null)
     {
-        echo "productWeight";
+        $this->size = $size;
     }
 
     function getData()
@@ -22,5 +22,7 @@ class DVD extends Product
         echo $this->sku;
         echo $this->name;
         echo $this->price;
+
+        echo $this->size . '<br>';
     }
 }

@@ -5,6 +5,6 @@ abstract class Product
     protected $name;
     protected $price;
 
-    abstract protected function productWeight();
+    abstract protected function setData($arg0, $arg1, $arg2);
     abstract protected function getData();
 }

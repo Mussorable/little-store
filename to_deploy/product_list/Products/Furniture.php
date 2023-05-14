@@ -14,15 +14,21 @@ class Furniture extends Product
         $this->price = $price;
     }
 
-    function productWeight()
+    function setData($height, $width, $length)
     {
-        echo "productWeight";
+        $this->height = $height;
+        $this->width = $width;
+        $this->length = $length;
     }
 
     function getData()
     {
-        echo $this->sku;
-        echo $this->name;
-        echo $this->price;
+        echo $this->sku . '<br>';
+        echo $this->name . '<br>';
+        echo $this->price . '<br>';
+
+        echo $this->height . '<br>';
+        echo $this->width . '<br>';
+        echo $this->length . '<br>';
     }
 }

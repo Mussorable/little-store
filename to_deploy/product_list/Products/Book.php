@@ -12,15 +12,17 @@ class Book extends Product
         $this->price = $price;
     }
 
-    function productWeight()
+    function setData($weight, $arg1 = null, $arg2 = null)
     {
-        echo "productWeight";
+        $this->weight = $weight;
     }
 
     function getData()
     {
-        echo $this->sku;
-        echo $this->name;
-        echo $this->price;
+        echo $this->sku . '<br>';
+        echo $this->name . '<br>';
+        echo $this->price . '<br>';
+
+        echo $this->weight . '<br>';
     }
 }
