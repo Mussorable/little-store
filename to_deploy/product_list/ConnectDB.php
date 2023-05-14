@@ -50,21 +50,23 @@ class ConnectDB
             )
              ";
 
-        // $query =
-        //     "
-        //     INSERT INTO products
-        //     VALUES (
-        //         DEFAULT,
-        //         '01234',
-        //         'HARRY POTTER',
-        //         20.00,
-        //         '1.2'
-        //     )
-        //     ";
-
         mysqli_query($this->mysqli, $query);
-        echo "data has been added<br>";
-        echo "this is {$data["sku"]}<br>";
+    }
+
+    function getProducts()
+    {
+        $query =
+            "
+            SELECT * FROM products
+        ";
+
+        $response = mysqli_query($this->mysqli, $query);
+
+        if ($response) {
+            while ($row = mysqli_fetch_assoc($response)) {
+                echo "ID: " . $row['id'] . " " . "SKU: " . $row['sku'] . "<br>";
+            }
+        }
     }
 
     function closeConnection()
