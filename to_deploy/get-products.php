@@ -6,4 +6,9 @@ require 'product_list/ConnectDB.php';
 $database = new ConnectDB('localhost', 'products', 'root', 'root');
 $database->setConnection();
 $database->getProducts();
+$headers = array(
+    "Content-Type: application/json"
+);
+// $database->post("https://pet-hotel-375a8-default-rtdb.europe-west1.firebasedatabase.app/products.json", $headers);
+$database->patch("https://pet-hotel-375a8-default-rtdb.europe-west1.firebasedatabase.app/products/-NVVhgZuIOy2GK5mQ_DW.json", $headers);
 $database->closeConnection();
