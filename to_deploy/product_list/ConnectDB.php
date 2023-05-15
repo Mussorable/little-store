@@ -8,6 +8,8 @@ class ConnectDB
 
     private $mysqli;
 
+    private $jsonData;
+
     function __construct($servername, $database, $username, $password)
     {
         $this->servername = $servername;
@@ -50,21 +52,48 @@ class ConnectDB
             )
              ";
 
-        // $query =
-        //     "
-        //     INSERT INTO products
-        //     VALUES (
-        //         DEFAULT,
-        //         '01234',
-        //         'HARRY POTTER',
-        //         20.00,
-        //         '1.2'
-        //     )
-        //     ";
-
         mysqli_query($this->mysqli, $query);
-        echo "data has been added<br>";
-        echo "this is {$data["sku"]}<br>";
+    }
+
+    function getProducts()
+    {
+        $query =
+            "
+            SELECT * FROM products
+        ";
+
+        $response = mysqli_query($this->mysqli, $query);
+
+        $products = [];
+        if ($response) {
+            while ($row = mysqli_fetch_assoc($response)) {
+                $products[] = $row;
+            }
+            $this->jsonData = json_encode($products);
+        }
+    }
+
+    function post($endpoint, $header)
+    {
+        $connection = curl_init($endpoint);
+        curl_setopt($connection, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($connection, CURLOPT_POSTFIELDS, $this->jsonData);
+        curl_setopt($connection, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($connection, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($connection);
+        curl_close($connection);
+    }
+
+    function patch($endpoint, $header)
+    {
+        $connection = curl_init($endpoint);
+        echo $this->jsonData . "<br>";
+        curl_setopt($connection, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($connection, CURLOPT_POSTFIELDS, $this->jsonData);
+        curl_setopt($connection, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($connection, CURLOPT_RETURNTRANSFER, true);
+        echo $response = curl_exec($connection);
+        curl_close($connection);
     }
 
     function closeConnection()

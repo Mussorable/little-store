@@ -2,17 +2,12 @@ import Input from "./Input";
 import { useState } from "react";
 import TypeData from "./TypeData";
 
-export default function Form({ handleFormSubmit }) {
+export default function Form() {
   const [productType, setProductType] = useState("");
 
   return (
     <div className="form-box">
-      <form
-        id="product_form"
-        action="index.php"
-        method="GET"
-        onSubmit={handleFormSubmit}
-      >
+      <form id="product_form" action="add-product.php" method="GET">
         <div className="data-inputs">
           <Input
             className="input-field"

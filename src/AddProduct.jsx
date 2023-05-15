@@ -10,10 +10,6 @@ export default function AddProduct() {
     navigate("/");
   }
 
-  function handleFormSubmit(e) {
-    // redirectToHome();
-  }
-
   return (
     <>
       <Header heading="Product Add">
@@ -29,7 +25,7 @@ export default function AddProduct() {
       </Header>
       <main>
         <div className="container">
-          <Form handleFormSubmit={handleFormSubmit} />
+          <Form />
         </div>
       </main>
     </>

@@ -1,44 +1,20 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
 
-// 
-require 'product_list/ConnectDB.php';
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-// Take the same for all products data and return new Product object
-$typeSelect = $_GET['type-select'];
-$sku = $_GET['sku'];
-$name = $_GET['name'];
-$price = $_GET['price'];
+  <title>Little Shop</title>
+  <script type="module" crossorigin src="/assets/index-ac630297.js"></script>
+  <link rel="stylesheet" href="/assets/index-833282e1.css" />
+</head>
 
-function &factory($productType, $sku, $name, $price)
-{
-    require_once('product_list/Products/' . $productType . '.php');
-    if (class_exists($productType)) {
-        $class = new $productType($sku, $name, $price);
-        return $class;
-    }
+<body>
+  <?php
+  include 'get-products.php';
+  ?>
+  <div id="root"></div>
+</body>
 
-    die('Cannot create new "' . $className . '" class - includes not found or class unavailable.');
-}
-
-function getTypeClassData($product)
-{
-    if (get_class($product) == 'Book') {
-        $product->setData($_GET['weight']);
-    } elseif (get_class($product) == 'DVD') {
-        $product->setData($_GET['size']);
-    } elseif (get_class($product) == "Furniture") {
-        $product->setData($_GET['height'], $_GET['width'], $_GET['length']);
-    } else {
-        return "Error. Product type nod defined.";
-    }
-}
-
-$product = factory($typeSelect, $sku, $name, $price);
-getTypeClassData($product);
-echo $product->getData();
-
-// 
-$database = new ConnectDB('localhost', 'products', 'root', 'root');
-$database->setConnection();
-$database->addProduct($product->getDataArray());
-$database->closeConnection();
+</html>
