@@ -1,0 +1,14 @@
+@use '_variables' as v
+
+.button
+    all: unset
+    cursor: pointer
+    border: 1px solid v.$border-color
+    padding: 7px 15px
+    background-color: v.$button-color
+
+    &:hover
+        background-color: v.$button-color-hover
+
+    &:active
+        translate: 1px 1px
