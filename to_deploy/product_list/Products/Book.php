@@ -23,7 +23,7 @@ class Book extends Product
             "sku" => $this->sku,
             "name" => $this->name,
             "price" => $this->price,
-            "arg" => $this->weight,
+            "arg" => $this->weight . 'KG',
             "type" => "Book"
         ];
         return $data;
