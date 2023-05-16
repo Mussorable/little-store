@@ -23,7 +23,7 @@ class DVD extends Product
             "sku" => $this->sku,
             "name" => $this->name,
             "price" => $this->price,
-            "arg" => $this->size,
+            "arg" => $this->size . ' MB',
             "type" => 'DVD'
         ];
         return $data;

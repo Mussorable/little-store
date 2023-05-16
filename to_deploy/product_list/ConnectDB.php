@@ -33,8 +33,6 @@ class ConnectDB
             echo 'Error: ' . $this->mysqli->connect_error;
             exit();
         }
-
-        echo 'Success: A proper connection to MySQL was made.<br>';
     }
 
     function addProduct($data)
@@ -73,6 +71,16 @@ class ConnectDB
         }
     }
 
+    function delProducts($id)
+    {
+        $query =
+            "
+            DELETE FROM products
+            WHERE id = {$id}; 
+            ";
+        mysqli_query($this->mysqli, $query);
+    }
+
     function post($endpoint, $header)
     {
         $connection = curl_init($endpoint);
@@ -87,18 +95,15 @@ class ConnectDB
     function patch($endpoint, $header)
     {
         $connection = curl_init($endpoint);
-        echo $this->jsonData . "<br>";
         curl_setopt($connection, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($connection, CURLOPT_POSTFIELDS, $this->jsonData);
         curl_setopt($connection, CURLOPT_HTTPHEADER, $header);
         curl_setopt($connection, CURLOPT_RETURNTRANSFER, true);
-        echo $response = curl_exec($connection);
         curl_close($connection);
     }
 
     function closeConnection()
     {
         $this->mysqli->close();
-        echo "connection closed.";
     }
 }
