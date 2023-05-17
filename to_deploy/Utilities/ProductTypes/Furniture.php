@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Utilities\ProductTypes;
-
-// require 'Product.php';
+namespace Utilities\ProductTypes;
 
 class Furniture extends Product
 {
@@ -34,16 +32,5 @@ class Furniture extends Product
             "type" => "Furniture"
         ];
         return $data;
-    }
-
-    function getData()
-    {
-        echo $this->sku . '<br>';
-        echo $this->name . '<br>';
-        echo $this->price . '<br>';
-
-        echo $this->height . '<br>';
-        echo $this->width . '<br>';
-        echo $this->length . '<br>';
     }
 }

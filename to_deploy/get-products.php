@@ -1,10 +1,11 @@
 <?php
 
-require 'product_list/ConnectDB.php';
+require 'Utilities/autoloader.php';
+
+use Utilities\ConnectDB;
 
 // set db connect
 $database = new ConnectDB('localhost', 'products', 'root', 'root');
-$database->setConnection();
 $database->getProducts();
 $headers = array(
     "Content-Type: application/json"
