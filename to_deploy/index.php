@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Little Shop</title>
-  <script type="module" crossorigin src="/assets/index-d32f1c8f.js"></script>
+  <script type="module" crossorigin src="/assets/index-b65c8fc4.js"></script>
   <link rel="stylesheet" href="/assets/index-6434803a.css" />
 </head>
 

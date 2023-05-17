@@ -1,7 +1,9 @@
 <?php
 
-// 
-require 'product_list/ConnectDB.php';
+require 'Utilities/autoloader.php';
+
+use Utilities\ConnectDB;
+
 
 // Take the same for all products data and return new Product object
 $typeSelect = $_GET['type-select'];
@@ -16,8 +18,6 @@ function &factory($productType, $sku, $name, $price)
         $class = new $productType($sku, $name, $price);
         return $class;
     }
-
-    die('Cannot create new "' . $className . '" class - includes not found or class unavailable.');
 }
 
 function getTypeClassData($product)
@@ -39,7 +39,6 @@ echo $product->getData();
 
 // 
 $database = new ConnectDB('localhost', 'products', 'root', 'root');
-$database->setConnection();
 $database->addProduct($product->getDataArray());
 $database->closeConnection();
 

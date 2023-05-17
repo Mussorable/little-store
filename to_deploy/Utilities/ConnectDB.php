@@ -1,4 +1,7 @@
 <?php
+
+namespace Utilities;
+
 class ConnectDB
 {
     private $servername;
@@ -16,11 +19,13 @@ class ConnectDB
         $this->database = $database;
         $this->username = $username;
         $this->password = $password;
+
+        $this->setConnection();
     }
 
-    function setConnection()
+    private function setConnection()
     {
-        $this->mysqli = @new mysqli(
+        $this->mysqli = @new \mysqli(
             $this->servername,
             $this->username,
             $this->password,

@@ -50,7 +50,10 @@ export default function Home() {
     })
       .then((response) => response.text())
       .then((data) => {
-        console.log(data);
+        const newArray = products.filter(
+          (item) => !checkboxArray.includes(item.id)
+        );
+        setProducts(newArray);
       })
       .catch((error) => {
         console.error(error);
