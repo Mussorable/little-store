@@ -1,6 +1,6 @@
 <?php
 
-require 'Utilities/autoloader.php';
+require_once 'Utilities/Autoloader.php';
 
 use Utilities\ConnectDB;
 

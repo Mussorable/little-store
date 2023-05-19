@@ -1,12 +1,22 @@
 <?php
 
-function autoloader($className)
+class Autoloader
 {
-    $filePath = str_replace('\\', '/', $className) . ".php";
+    public static function register()
+    {
+        spl_autoload_register([__CLASS__, 'autoload']);
+    }
 
-    if (file_exists($filePath)) {
-        require $filePath;
+    private static function autoload($className)
+    {
+        $filePath = str_replace('\\', '/', $className) . ".php";
+
+        if (file_exists($filePath)) {
+            require $filePath;
+        } else {
+            echo "autoloader error";
+        }
     }
 }
 
-spl_autoload_register('autoloader');
+Autoloader::register();

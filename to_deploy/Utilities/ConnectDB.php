@@ -76,14 +76,24 @@ class ConnectDB
         }
     }
 
-    function delProducts($id)
+    function delProducts()
     {
-        $query =
-            "
-            DELETE FROM products
-            WHERE id = {$id}; 
-            ";
-        mysqli_query($this->mysqli, $query);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dataArray = json_decode(file_get_contents('php://input'), true);
+
+            if (isset($dataArray['data']) && is_array($dataArray['data'])) {
+                $receivedArray = $dataArray['data'];
+                foreach ($receivedArray as $index => $value) {
+                    mysqli_query(
+                        $this->mysqli,
+                        "
+                    DELETE FROM products
+                    WHERE id = {$value};  
+                    "
+                    );
+                }
+            }
+        }
     }
 
     function post($endpoint, $header)

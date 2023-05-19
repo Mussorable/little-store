@@ -49,7 +49,7 @@ export default function Home() {
       body: JSON.stringify({ data: checkboxArray }),
     })
       .then((response) => response.text())
-      .then((data) => {
+      .then(() => {
         const newArray = products.filter(
           (item) => !checkboxArray.includes(item.id)
         );
