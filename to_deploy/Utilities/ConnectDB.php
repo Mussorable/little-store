@@ -2,6 +2,8 @@
 
 namespace Utilities;
 
+use Utilities\SQL_Classes;
+
 class ConnectDB
 {
     private $servername;
@@ -11,14 +13,14 @@ class ConnectDB
 
     private $mysqli;
 
-    private $jsonData;
+    private $allProducts;
 
     function __construct()
     {
-        $this->servername = 'localhost';
-        $this->database = 'products';
-        $this->username = 'root';
-        $this->password = 'root';
+        $this->servername = '';
+        $this->database = '';
+        $this->username = '';
+        $this->password = '';
 
         $this->setConnection();
     }
@@ -64,7 +66,7 @@ class ConnectDB
     {
         $data = [];
         if ($response) {
-            while ($row = mysqli_fetch_assoc($response)) {
+            while ($row = $response->fetch_assoc()) {
                 $data[] = $row;
             }
         }
@@ -80,7 +82,7 @@ class ConnectDB
             WHERE parameter = 'to_update';
             ";
 
-        $response = mysqli_query($this->mysqli, $query);
+        $response = $this->mysqli->query($query);
         $data = $this->getResponse($response);
         $isUpdateAPI = $data[0]["value"];
 
@@ -96,7 +98,7 @@ class ConnectDB
                 WHERE parameter = 'to_update';
             ";
 
-        mysqli_query($this->mysqli, $query);
+        $this->mysqli->query($query);
     }
 
     final private function setUpdated()
@@ -108,22 +110,22 @@ class ConnectDB
                 WHERE parameter = 'to_update';
             ";
 
-        mysqli_query($this->mysqli, $query);
+        $this->mysqli->query($query);
     }
 
     function getProducts()
     {
-        $query =
-            "
-                SELECT * FROM products
-            ";
+        $query = "SELECT id, sku, name, price, arg, type FROM products";
 
-        $response = mysqli_query($this->mysqli, $query);
+        $response = $this->mysqli->query($query);;
 
-        if ($response) {
-            $data = $this->getResponse($response);
-            $this->jsonData = json_encode($data);
+        $products = array();
+
+        while ($row = $response->fetch_object(SQL_Classes\Product::class)) {
+            $products[] = $row->getProduct();
         }
+
+        $this->allProducts = json_encode($products);
     }
 
     function delProducts()
@@ -135,12 +137,11 @@ class ConnectDB
             if (isset($dataArray['data']) && is_array($dataArray['data'])) {
                 $receivedArray = $dataArray['data'];
                 foreach ($receivedArray as $index => $value) {
-                    mysqli_query(
-                        $this->mysqli,
+                    $this->mysqli->query(
                         "
-                    DELETE FROM products
-                    WHERE id = {$value};  
-                    "
+                            DELETE FROM products
+                            WHERE id = {$value};  
+                        "
                     );
                 }
             }
@@ -150,9 +151,9 @@ class ConnectDB
     function patchAPI($endpoint, $header)
     {
         $connection = curl_init($endpoint);
-        $this->jsonData . "<br>";
+        $this->allProducts . "<br>";
         curl_setopt($connection, CURLOPT_CUSTOMREQUEST, "PUT");
-        curl_setopt($connection, CURLOPT_POSTFIELDS, $this->jsonData);
+        curl_setopt($connection, CURLOPT_POSTFIELDS, $this->allProducts);
         curl_setopt($connection, CURLOPT_HTTPHEADER, $header);
         curl_setopt($connection, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($connection);
