@@ -6,10 +6,6 @@ import { useEffect } from "react";
 export default function Form({ sku, skuInputValue, setSkuInputValue }) {
   const [productType, setProductType] = useState("");
 
-  useEffect(() => {
-    console.log(sku);
-  }, [sku]);
-
   return (
     <div className="form-box">
       {sku && (
