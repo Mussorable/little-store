@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Checkbox from "./Checkbox";
 
 export default function ProductItem({ product, handleCheckboxClick }) {

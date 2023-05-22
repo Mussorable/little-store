@@ -1,11 +1,20 @@
+import { useState } from "react";
 import Input from "./Input";
 
 export default function TypeData({ typeName }) {
+  const [isNotValid, setIsNotValid] = useState(false);
+  const numRegex = /^[0-9.]+$/;
+
   return (
     <>
       {typeName === "DVD" && (
         <>
           <Input
+            onChange={(e) =>
+              setIsNotValid(
+                !numRegex.test(e.target.value) && e.target.value.length > 0
+              )
+            }
             className="input-field"
             type="text"
             id="size"
@@ -18,6 +27,11 @@ export default function TypeData({ typeName }) {
       {typeName === "Furniture" && (
         <>
           <Input
+            onChange={(e) =>
+              setIsNotValid(
+                !numRegex.test(e.target.value) && e.target.value.length > 0
+              )
+            }
             className="input-field"
             type="text"
             id="height"
@@ -25,6 +39,11 @@ export default function TypeData({ typeName }) {
             labelName="Height (CM)"
           />
           <Input
+            onChange={(e) =>
+              setIsNotValid(
+                !numRegex.test(e.target.value) && e.target.value.length > 0
+              )
+            }
             className="input-field"
             type="text"
             id="width"
@@ -32,6 +51,11 @@ export default function TypeData({ typeName }) {
             labelName="Width (CM)"
           />
           <Input
+            onChange={(e) =>
+              setIsNotValid(
+                !numRegex.test(e.target.value) && e.target.value.length > 0
+              )
+            }
             className="input-field"
             type="text"
             id="length"
@@ -44,6 +68,11 @@ export default function TypeData({ typeName }) {
       {typeName === "Book" && (
         <>
           <Input
+            onChange={(e) =>
+              setIsNotValid(
+                !numRegex.test(e.target.value) && e.target.value.length > 0
+              )
+            }
             className="input-field"
             type="text"
             id="weight"
@@ -53,6 +82,7 @@ export default function TypeData({ typeName }) {
           <p className="description">Please, provide weight</p>
         </>
       )}
+      {isNotValid && <p>Please, provide the data of indicated type</p>}
     </>
   );
 }

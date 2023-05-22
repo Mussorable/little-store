@@ -13,8 +13,6 @@ class Autoloader
 
         if (file_exists($filePath)) {
             require $filePath;
-        } else {
-            echo "autoloader error";
         }
     }
 }
