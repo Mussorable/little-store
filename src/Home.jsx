@@ -17,7 +17,7 @@ export default function Home() {
   );
 
   useEffect(() => {
-    get("products/-NVVhgZuIOy2GK5mQ_DW.json").then((object) => {
+    get("products.json").then((object) => {
       setProducts(Object.values(object));
     });
   }, []);

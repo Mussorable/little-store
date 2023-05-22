@@ -6,7 +6,7 @@ use Utilities\DataConverter;
 use Utilities\ConnectDB;
 
 // 
-$database = new ConnectDB('localhost', 'products', 'root', 'root');
+$database = new ConnectDB();
 
 $productType = DataConverter::getProductClass($_GET['type-select'], $_GET['sku'], $_GET['name'], $_GET['price']);
 

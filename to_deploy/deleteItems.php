@@ -5,6 +5,6 @@ require_once 'Utilities/Autoloader.php';
 use Utilities\ConnectDB;
 
 
-$database = new ConnectDB('localhost', 'products', 'root', 'root');
+$database = new ConnectDB();
 $database->delProducts();
 $database->closeConnection();
