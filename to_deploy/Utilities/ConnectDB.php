@@ -13,12 +13,12 @@ class ConnectDB
 
     private $jsonData;
 
-    function __construct($servername, $database, $username, $password)
+    function __construct()
     {
-        $this->servername = $servername;
-        $this->database = $database;
-        $this->username = $username;
-        $this->password = $password;
+        $this->servername = 'localhost';
+        $this->database = 'products';
+        $this->username = 'root';
+        $this->password = 'root';
 
         $this->setConnection();
     }
@@ -56,6 +56,59 @@ class ConnectDB
              ";
 
         mysqli_query($this->mysqli, $query);
+
+        $this->setToUpdate();
+    }
+
+    final private function getResponse($response)
+    {
+        $data = [];
+        if ($response) {
+            while ($row = mysqli_fetch_assoc($response)) {
+                $data[] = $row;
+            }
+        }
+
+        return $data;
+    }
+
+    function checkDB_Updates()
+    {
+        $query =
+            "
+            SELECT value FROM settings
+            WHERE parameter = 'to_update';
+            ";
+
+        $response = mysqli_query($this->mysqli, $query);
+        $data = $this->getResponse($response);
+        $isUpdateAPI = $data[0]["value"];
+
+        return $isUpdateAPI;
+    }
+
+    final private function setToUpdate()
+    {
+        $query =
+            "
+                UPDATE settings
+                SET value = true
+                WHERE parameter = 'to_update';
+            ";
+
+        mysqli_query($this->mysqli, $query);
+    }
+
+    final private function setUpdated()
+    {
+        $query =
+            "
+                UPDATE settings
+                SET value = false
+                WHERE parameter = 'to_update';
+            ";
+
+        mysqli_query($this->mysqli, $query);
     }
 
     function getProducts()
@@ -67,12 +120,9 @@ class ConnectDB
 
         $response = mysqli_query($this->mysqli, $query);
 
-        $products = [];
         if ($response) {
-            while ($row = mysqli_fetch_assoc($response)) {
-                $products[] = $row;
-            }
-            $this->jsonData = json_encode($products);
+            $data = $this->getResponse($response);
+            $this->jsonData = json_encode($data);
         }
     }
 
@@ -92,22 +142,13 @@ class ConnectDB
                     "
                     );
                 }
+
+                $this->setToUpdate();
             }
         }
     }
 
-    function post($endpoint, $header)
-    {
-        $connection = curl_init($endpoint);
-        curl_setopt($connection, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($connection, CURLOPT_POSTFIELDS, $this->jsonData);
-        curl_setopt($connection, CURLOPT_HTTPHEADER, $header);
-        curl_setopt($connection, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($connection);
-        curl_close($connection);
-    }
-
-    function patch($endpoint, $header)
+    function patchAPI($endpoint, $header)
     {
         $connection = curl_init($endpoint);
         $this->jsonData . "<br>";
@@ -117,6 +158,10 @@ class ConnectDB
         curl_setopt($connection, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($connection);
         curl_close($connection);
+
+        if ($response) {
+            $this->setUpdated();
+        }
     }
 
     function closeConnection()
