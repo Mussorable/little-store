@@ -1,13 +1,12 @@
 <?php
 
-require 'product_list/ConnectDB.php';
+require_once 'Utilities/Autoloader.php';
 
-// set db connect
-$database = new ConnectDB('localhost', 'products', 'root', 'root');
-$database->setConnection();
+use Utilities\ConnectDB;
+
+$database = new ConnectDB();
 $database->getProducts();
-$headers = array(
-    "Content-Type: application/json"
-);
-$database->patch("https://pet-hotel-375a8-default-rtdb.europe-west1.firebasedatabase.app/products/-NVVhgZuIOy2GK5mQ_DW.json", $headers);
+if ($database->checkDB_Updates()) {
+    $database->patchAPI("https://pet-hotel-375a8-default-rtdb.europe-west1.firebasedatabase.app/products.json", ["Content-Type: application/json"]);
+}
 $database->closeConnection();

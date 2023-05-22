@@ -5,19 +5,15 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
-import useFetch from "./useFetch";
 
-export default function Home() {
+export default function Home({ get, endpoint }) {
   const [products, setProducts] = useState();
   const [checkboxArray, setCheckboxArray] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
   const formRef = useRef();
-  const { get } = useFetch(
-    "https://pet-hotel-375a8-default-rtdb.europe-west1.firebasedatabase.app/"
-  );
 
   useEffect(() => {
-    get("products/-NVVhgZuIOy2GK5mQ_DW.json").then((object) => {
+    get(endpoint).then((object) => {
       setProducts(Object.values(object));
     });
   }, []);
@@ -49,8 +45,11 @@ export default function Home() {
       body: JSON.stringify({ data: checkboxArray }),
     })
       .then((response) => response.text())
-      .then((data) => {
-        console.log(data);
+      .then(() => {
+        const newArray = products.filter(
+          (item) => !checkboxArray.includes(item.id)
+        );
+        setProducts(newArray);
       })
       .catch((error) => {
         console.error(error);

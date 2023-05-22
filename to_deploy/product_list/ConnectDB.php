@@ -95,10 +95,12 @@ class ConnectDB
     function patch($endpoint, $header)
     {
         $connection = curl_init($endpoint);
+        $this->jsonData . "<br>";
         curl_setopt($connection, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($connection, CURLOPT_POSTFIELDS, $this->jsonData);
         curl_setopt($connection, CURLOPT_HTTPHEADER, $header);
         curl_setopt($connection, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($connection);
         curl_close($connection);
     }
 
