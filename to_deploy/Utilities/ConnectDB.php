@@ -115,8 +115,8 @@ class ConnectDB
     {
         $query =
             "
-            SELECT * FROM products
-        ";
+                SELECT * FROM products
+            ";
 
         $response = mysqli_query($this->mysqli, $query);
 
@@ -128,6 +128,7 @@ class ConnectDB
 
     function delProducts()
     {
+        $this->setToUpdate();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $dataArray = json_decode(file_get_contents('php://input'), true);
 
@@ -142,8 +143,6 @@ class ConnectDB
                     "
                     );
                 }
-
-                $this->setToUpdate();
             }
         }
     }
